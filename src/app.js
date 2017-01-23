@@ -30,34 +30,34 @@ app.use(convert(json()));
 app.use(convert(logger()));
 app.use(convert(require('koa-static')(__dirname + '/assets')));
 
-app.use((ctx, next) => {
-	// 校验openid
-	let path = ctx.path;
-
-	if(path.match('member|station')) {
-		let {openid=''} = ctx.query;
-
-		let sOpenid = ctx.session.openid;
-
-		// console.log(path, sOpenid, openid);
-
-		if(openid === '') {
-			ctx.body = {
-				state: 401,
-				msg: '非法请求'
-			}
-		} else if(sOpenid === openid) {
-			next();
-		} else {
-			ctx.body = {
-				state: 401,
-				msg: '授权超时'
-			}
-		}
-	} else {
-		next();
-	}
-});
+// app.use((ctx, next) => {
+// 	// 校验openid
+// 	let path = ctx.path;
+//
+// 	if(path.match('member|station')) {
+// 		let {openid=''} = ctx.query;
+//
+// 		let sOpenid = ctx.session.openid;
+//
+// 		// console.log(path, sOpenid, openid);
+//
+// 		if(openid === '') {
+// 			ctx.body = {
+// 				state: 401,
+// 				msg: '非法请求'
+// 			}
+// 		} else if(sOpenid === openid) {
+// 			next();
+// 		} else {
+// 			ctx.body = {
+// 				state: 401,
+// 				msg: '授权超时'
+// 			}
+// 		}
+// 	} else {
+// 		next();
+// 	}
+// });
 
 // Route
 const index = require('./routes/index');
